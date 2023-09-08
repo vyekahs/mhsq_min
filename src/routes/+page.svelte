@@ -1,3 +1,25 @@
+<script>
+  import Funnel from "../component/Funnel/Funnel.svelte";
+  import 병원선택 from "../component/Reservation/병원선택.svelte";
+  import 사람선택 from "../component/Reservation/사람선택.svelte";
+  import 일정선택 from "../component/Reservation/일정선택.svelte";
+
+  const Steps = [
+    {
+      name: "병원선택",
+      children: 병원선택,
+    },
+    {
+      name: "사람선택",
+      children: 사람선택,
+    },
+    {
+      name: "일정선택",
+      children: 일정선택,
+    },
+  ];
+</script>
+
 <div class="main">
   <h1>검사 시작</h1>
   <p>검사를 시작하시겠습니까?</p>
@@ -6,6 +28,8 @@
   <a href="/survey" class="start-button">검사 시작하기</a>
   <p>검사 결과는 <a href="/result">여기</a>에서 확인하실 수 있습니다.</p>
 </div>
+
+<Funnel qs="step" steps={Steps} />
 
 <style>
   .main {

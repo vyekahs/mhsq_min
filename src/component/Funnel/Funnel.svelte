@@ -3,19 +3,24 @@
   import { goto } from "$app/navigation";
   import { setContext } from "svelte";
   import { writable } from "svelte/store";
+  import { page } from "$app/stores";
+  import Transition from "../Transition/Transition.svelte";
 
   export let qs: string;
-  export let steps: string[];
+  export let steps: { name: string; children: any }[];
 
-  const stepStore = writable<string | null>(null);
-  let step: string | null;
+  const params = $page.url.search;
+  console.log(params);
+
+  const stepStore = writable<{ name: string; children: any } | null>(null);
+  let currStep: { name: string; children: any } = steps[0];
 
   const onNext = () => {
-    if (!step) {
+    if (!currStep) {
       return;
     }
 
-    const nextIndex = steps.indexOf(step) + 1;
+    const nextIndex = steps.indexOf(currStep) + 1;
 
     if (nextIndex >= steps.length) {
       return;
@@ -23,24 +28,23 @@
 
     const nextStep = steps[nextIndex];
     stepStore.set(nextStep);
-    goto(`?${qs}=${nextStep}`);
+    goto(`?${qs}=${nextStep.name}`);
   };
 
-  setContext("step", stepStore);
+  setContext("currStep", stepStore);
 
   $: {
-    step = $stepStore;
+    if ($stepStore) {
+      currStep = $stepStore;
+    }
   }
 </script>
 
 <div>
-  <slot />
+  {#key $page.url.search}
+    <Transition>
+      <svelte:component this={currStep.children} />
+    </Transition>
+  {/key}
+  <button on:click={onNext}>다음</button>
 </div>
-
-<!-- Funnel.Step 컴포넌트를 사용할 때 슬롯 내부에 해당 스텝이 현재 스텝과 일치하는지 확인합니다. -->
-{#if step === name}
-  <div>
-    <slot />
-    <button on:click={onNext}>다음</button>
-  </div>
-{/if}
