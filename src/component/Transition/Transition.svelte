@@ -21,6 +21,7 @@
 
   export function fadeOut(node: Element): TransitionConfig {
     const offset = window.innerWidth;
+
     if ($disabled) {
       return {
         duration: 0,
@@ -33,7 +34,7 @@
       css: (t: number, u: number) =>
         `transform: translateX(${
           -offset * u
-        }px); position:absolute; top:0; left:0; width:100%; z-index: -1;`,
+        }px); position:absolute;  left:0; width:100%; z-index: -1;`,
     };
   }
 </script>
