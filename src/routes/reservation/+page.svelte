@@ -1,24 +1,24 @@
 <!-- App.svelte -->
 <script lang="ts">
-  import Funnel from "../../component/Funnel/Funnel.svelte";
   import 병원선택 from "../../component/Reservation/병원선택.svelte";
   import 사람선택 from "../../component/Reservation/사람선택.svelte";
-  import 일정선택 from "../../component/Reservation/일정선택.svelte";
 
-  const Steps = [
-    {
-      name: "병원선택",
-      children: 병원선택,
+  import Funnel from "../../component/Funnel/Funnel.svelte";
+  import Question from "../../component/Question/Question.svelte";
+  import type { ComponentType } from "svelte";
+  import { questions } from "../survey/question";
+
+  const Steps: {
+    name: number;
+    component: ComponentType;
+    props?: Record<string, any>;
+  }[] = questions.map((question) => ({
+    name: question.index,
+    component: Question,
+    props: {
+      ...question,
     },
-    {
-      name: "사람선택",
-      children: 사람선택,
-    },
-    {
-      name: "일정선택",
-      children: 일정선택,
-    },
-  ];
+  }));
 </script>
 
-<Funnel qs="step" steps={Steps} />
+<Funnel steps={Steps} />

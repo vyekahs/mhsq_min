@@ -1,50 +1,59 @@
 <!-- Funnel.svelte -->
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { setContext } from "svelte";
-  import { writable } from "svelte/store";
   import { page } from "$app/stores";
+  import type { ComponentType } from "svelte";
   import Transition from "../Transition/Transition.svelte";
 
-  export let qs: string;
-  export let steps: { name: string; children: any }[];
+  export let qs: string = "funnel-step"; // 쿼리스트링 default: funnel-step
+  export let steps: {
+    name: number; // params와 같은 name을 보여준다.
+    component: ComponentType;
+    props?: Record<string, any>;
+  }[];
 
-  const params = $page.url.search;
-  console.log(params);
+  let index = $page.url.searchParams.get(qs);
+  let stepIndex = index ?? 1; // index가 null이면 0을 반환
 
-  const stepStore = writable<{ name: string; children: any } | null>(null);
-  let currStep: { name: string; children: any } = steps[0];
+  let currStep:
+    | {
+        name: number;
+        component: ComponentType;
+        props?: Record<string, any>;
+      }
+    | undefined = steps.find((el) => el.name === +stepIndex);
 
-  const onNext = () => {
-    if (!currStep) {
-      return;
-    }
-
-    const nextIndex = steps.indexOf(currStep) + 1;
-
-    if (nextIndex >= steps.length) {
-      return;
-    }
-
-    const nextStep = steps[nextIndex];
-    stepStore.set(nextStep);
-    goto(`?${qs}=${nextStep.name}`);
-  };
-
-  setContext("currStep", stepStore);
+  let onNext: VoidFunction;
 
   $: {
-    if ($stepStore) {
-      currStep = $stepStore;
-    }
+    index = $page.url.searchParams.get(qs);
+    stepIndex = index ?? 1;
+
+    currStep = steps.find((el) => el.name === +stepIndex);
+
+    onNext = () => {
+      if (!currStep) {
+        return;
+      }
+
+      const nextStepIndex = steps.indexOf(currStep) + 2;
+
+      if (nextStepIndex > steps.length) {
+        return;
+      }
+
+      goto(`?${qs}=${nextStepIndex}`);
+    };
   }
 </script>
 
 <div>
-  {#key $page.url.search}
-    <Transition>
-      <svelte:component this={currStep.children} />
-    </Transition>
-  {/key}
+  {#if currStep}
+    {#key currStep}
+      <Transition>
+        <svelte:component this={currStep.component} {...currStep.props} />
+      </Transition>
+    {/key}
+  {/if}
   <button on:click={onNext}>다음</button>
 </div>
