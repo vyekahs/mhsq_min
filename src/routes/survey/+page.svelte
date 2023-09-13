@@ -3,6 +3,9 @@
   import { questions } from "./question";
   import { answer } from "../store/answer_data";
   import { slide } from "svelte/transition";
+  import Funnel from "../../component/Funnel/Funnel.svelte";
+  import type { ComponentType } from "svelte";
+  import Question from "../../component/Question/Question.svelte";
   let currentIdx = 0;
   let selectedAnswers: number[] = [];
   let completed = false;
@@ -32,6 +35,18 @@
     answer.set(selectedAnswers);
     goto(`/result`, { state: { selectedAnswers }, replaceState: true });
   }
+
+  const Steps: {
+    name: number;
+    component: ComponentType;
+    props?: Record<string, any>;
+  }[] = questions.map((question) => ({
+    name: question.index,
+    component: Question,
+    props: {
+      ...question,
+    },
+  }));
 </script>
 
 <section>
@@ -55,23 +70,7 @@
       </div>
     </header>
     <div class="row">
-      {#each questions as q, idx}
-        {#if idx === currentIdx && !completed}
-          <div class="question"
-          transition:slide="{{ duration: 300, delay: 0, easing: e => e , axis: 'x'}}"
-          >
-            <div class="title">{q.question}</div>
-            <div class="flex">
-              {#each q.answers as answer}
-                <button
-                  class="selectButton"
-                  on:click={() => selectAnswer(answer.score)}>{answer.answer}</button
-                >
-              {/each}
-            </div>
-          </div>
-        {/if}
-      {/each}
+      <Funnel steps={Steps} />
       {#if completed}
         <div class="question">
           <span>검사가 완료되었습니다.</span>
@@ -129,14 +128,6 @@
     font-size: 10px;
   }
 
-  .title {
-    height: 200px;
-    width: 300px;
-    text-align: center;
-    word-wrap: break-word;
-    white-space: pre-line;
-    word-break: keep-all;
-  }
   .row {
     display: flex;
     flex-direction: row;
