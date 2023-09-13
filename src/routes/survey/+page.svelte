@@ -3,14 +3,24 @@
   import { questions } from "./question";
   import { answer } from "../store/answer_data";
   import Funnel from "../../component/Funnel/Funnel.svelte";
-  import type { ComponentType } from "svelte";
+  import { onMount, type ComponentType } from "svelte";
   import Question from "../../component/Question/Question.svelte";
-
-  let currentIdx = 0;
-  let selectedAnswers: any[] = [];
-  let completed = false;
+  import { page } from "$app/stores";
 
   let qs = "funnel-step";
+  const idx = $page.url.searchParams.get(qs);
+
+  let currentIdx = 0;
+  let selectedAnswers: number[] = [];
+
+  let completed = false;
+
+  let currIdx: number;
+  onMount(() => {
+    const initCurrIdx = sessionStorage.getItem("currIdx");
+    currIdx = initCurrIdx ? +initCurrIdx : 1;
+    console.log(currIdx);
+  });
 
   function selectAnswer(answer: any) {
     selectedAnswers[currentIdx] = answer;
@@ -18,7 +28,10 @@
   }
 
   function nextQuestion() {
-    if (currentIdx <= questions.length - 1) currentIdx++;
+    if (currentIdx <= questions.length - 1) {
+      currentIdx++;
+      sessionStorage.setItem("currIdx", currentIdx.toString());
+    }
     if (
       selectedAnswers[questions.length - 1] &&
       currentIdx >= questions.length
@@ -99,8 +112,8 @@
   header {
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     margin-top: 40px;
   }

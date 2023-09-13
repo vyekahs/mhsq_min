@@ -1,6 +1,6 @@
 <script lang="ts">
   export let question: string;
-  export let answers: string[];
+  export let answers: Answer[];
   export let onNext: () => void;
   export let selectAnswer: (answer: any) => void;
 </script>
@@ -16,7 +16,7 @@
           onNext();
         }}
       >
-        {answer}
+        {answer.answer}
       </button>
     {/each}
   </div>
@@ -30,6 +30,9 @@
   }
   .flex {
     width: 100%;
+    height: 100%;
+    max-height: 330px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -43,6 +46,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 14px;
     border: none;
   }
 
