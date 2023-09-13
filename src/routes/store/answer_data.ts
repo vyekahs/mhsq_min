@@ -1,5 +1,5 @@
-import {writable} from 'svelte/store';
+import { writable } from 'svelte/store';
 
-const answer = writable({});
+const answer = writable<number[]>([]);
 
-export {answer}
+export { answer }

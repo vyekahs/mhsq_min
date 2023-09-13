@@ -1,5 +1,13 @@
 type quest = {
     index: number;
     question: string;
-    answers: string[];
-  }[];
+    group?: number[];
+    answers: {
+        answer: string;
+        score: number;
+        index: number;
+        pass?: boolean;
+    }[];
+}[];
+
+

@@ -4,7 +4,7 @@
   import { answer } from "../store/answer_data";
   import { slide } from "svelte/transition";
   let currentIdx = 0;
-  let selectedAnswers: any[] = [];
+  let selectedAnswers: number[] = [];
   let completed = false;
 
   function selectAnswer(answer: any) {
@@ -65,7 +65,7 @@
               {#each q.answers as answer}
                 <button
                   class="selectButton"
-                  on:click={() => selectAnswer(answer)}>{answer}</button
+                  on:click={() => selectAnswer(answer.score)}>{answer.answer}</button
                 >
               {/each}
             </div>
