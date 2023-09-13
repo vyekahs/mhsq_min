@@ -2,13 +2,15 @@
   import { goto } from "$app/navigation";
   import { questions } from "./question";
   import { answer } from "../store/answer_data";
-  import { slide } from "svelte/transition";
   import Funnel from "../../component/Funnel/Funnel.svelte";
   import type { ComponentType } from "svelte";
   import Question from "../../component/Question/Question.svelte";
+
   let currentIdx = 0;
   let selectedAnswers: any[] = [];
   let completed = false;
+
+  let qs = "funnel-step";
 
   function selectAnswer(answer: any) {
     selectedAnswers[currentIdx] = answer;
@@ -26,7 +28,10 @@
   }
 
   function prevQuestion() {
-    if (currentIdx > 0) currentIdx--;
+    if (currentIdx > 0) {
+      currentIdx--;
+      goto(`?${qs}=${currentIdx + 1}`);
+    }
     completed = false;
   }
 
@@ -44,79 +49,67 @@
     name: question.index,
     component: Question,
     props: {
-      ...question,
+      question: question.question,
+      answers: question.answers,
+      selectAnswer,
     },
   }));
 </script>
 
-<section>
-  <div class="section">
-    <header>
-      <button class="circle-button" on:click={prevQuestion}>
-        <svg class="arrow-icon" width="10" height="10" viewBox="0 0 24 24">
-          <path
-            stroke="#fff"
-            stroke-width="2"
-            fill="none"
-            d="M16 20l-8-8 8-8"
-          />
-        </svg>
-      </button>
-      <div class="progress-bar">
-        <div
-          class="progress"
-          style="width: {(currentIdx / questions.length) * 100}%;"
-        />
-      </div>
-    </header>
-    <div class="row">
-      <Funnel steps={Steps} />
-      {#if completed}
-        <div class="question">
-          <span>검사가 완료되었습니다.</span>
-          <div class="flex">
-            <button class="selectButton" on:click={complete}>
-              결과 확인하기
-            </button>
-          </div>
-        </div>
-      {/if}
+<div class="section">
+  <header>
+    <button class="circle-button" on:click={prevQuestion}>
+      <svg class="arrow-icon" width="10" height="10" viewBox="0 0 24 24">
+        <path stroke="#fff" stroke-width="2" fill="none" d="M16 20l-8-8 8-8" />
+      </svg>
+    </button>
+    <div class="progress-bar">
+      <div
+        class="progress"
+        style="width: {(currentIdx / questions.length) * 100}%;"
+      />
     </div>
+  </header>
+  <div class="row">
+    <Funnel {qs} steps={Steps} />
+    {#if completed}
+      <div class="question">
+        <span>검사가 완료되었습니다.</span>
+        <div class="flex">
+          <button class="selectButton" on:click={complete}>
+            결과 확인하기
+          </button>
+        </div>
+      </div>
+    {/if}
   </div>
-</section>
+</div>
 
-<style>
-  section {
-    width: 100%; /* 또는 원하는 크기 */
-    height: 100vh;
+<style scoped>
+  .section {
+    width: 100%;
+    max-width: 330px;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-around;
-    min-width: 330px;
   }
+
   header {
     width: 100%;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    margin-top: 40px;
   }
 
-  .section {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    min-width: 330px;
-    max-width: 630px;
-  }
   .circle-button {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background-color: #000;
+    background-color: orange;
     display: flex;
     border: none;
     align-items: center;
@@ -131,18 +124,19 @@
   .row {
     display: flex;
     flex-direction: row;
+    width: 100%;
   }
   .progress-bar {
     width: 100%;
-    background-color: #ccc;
-    height: 15px;
+    background-color: #ddd;
+    height: 20px;
     border-radius: 10px;
   }
 
   .progress {
-    background-color: #000;
+    background-color: orange;
     height: 100%;
-    border-radius: 5px;
+    border-radius: 10px;
   }
   .question {
     width: 100%;

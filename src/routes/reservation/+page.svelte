@@ -1,8 +1,5 @@
 <!-- App.svelte -->
 <script lang="ts">
-  import 병원선택 from "../../component/Reservation/병원선택.svelte";
-  import 사람선택 from "../../component/Reservation/사람선택.svelte";
-
   import Funnel from "../../component/Funnel/Funnel.svelte";
   import Question from "../../component/Question/Question.svelte";
   import type { ComponentType } from "svelte";

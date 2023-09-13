@@ -51,9 +51,18 @@
   {#if currStep}
     {#key currStep}
       <Transition>
-        <svelte:component this={currStep.component} {...currStep.props} />
+        <svelte:component
+          this={currStep.component}
+          {...currStep.props}
+          {onNext}
+        />
       </Transition>
     {/key}
   {/if}
-  <button on:click={onNext}>다음</button>
 </div>
+
+<style scoped>
+  div {
+    width: 100%;
+  }
+</style>
