@@ -41,6 +41,13 @@
   }
 </script>
 
-<div in:fadeIn out:fadeOut>
+<div in:fadeIn out:fadeOut class="container">
   <slot />
 </div>
+
+<style scoped>
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+</style>

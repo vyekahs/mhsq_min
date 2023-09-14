@@ -1,4 +1,3 @@
-
 <div class="main">
   <h1>검사 시작</h1>
   <p>검사를 시작하시겠습니까?</p>
@@ -7,7 +6,6 @@
   <a href="/survey" class="start-button">검사 시작하기</a>
   <p>검사 결과는 <a href="/result">여기</a>에서 확인하실 수 있습니다.</p>
 </div>
-
 
 <style>
   .main {

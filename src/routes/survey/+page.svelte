@@ -3,50 +3,39 @@
   import { questions } from "./question";
   import { answer } from "../store/answer_data";
   import Funnel from "../../component/Funnel/Funnel.svelte";
-  import { onMount, type ComponentType } from "svelte";
   import Question from "../../component/Question/Question.svelte";
   import { page } from "$app/stores";
+  import Header from "../../component/Survey/Header.svelte";
+  import Progress from "../../component/Survey/Progress.svelte";
+  import type { ComponentType } from "svelte";
 
   let qs = "funnel-step";
-  const idx = $page.url.searchParams.get(qs);
+  let initIndex = $page.url.searchParams.get(qs);
 
-  let currentIdx = 0;
-  let selectedAnswers: number[] = [];
+  let currentStepIndex = initIndex ? +initIndex : 1; // funnel-step이 없으면 1, 있으면 value
+
+  let selectedAnswers: Answer[] = [];
 
   let completed = false;
 
-  let currIdx: number;
-  onMount(() => {
-    const initCurrIdx = sessionStorage.getItem("currIdx");
-    currIdx = initCurrIdx ? +initCurrIdx : 1;
-    console.log(currIdx);
-  });
-
-  function selectAnswer(answer: any) {
-    selectedAnswers[currentIdx] = answer;
+  const selectAnswer = (answer: Answer) => {
+    selectedAnswers[currentStepIndex - 1] = answer;
     nextQuestion();
-  }
+  };
 
-  function nextQuestion() {
-    if (currentIdx <= questions.length - 1) {
-      currentIdx++;
-      sessionStorage.setItem("currIdx", currentIdx.toString());
-    }
-    if (
-      selectedAnswers[questions.length - 1] &&
-      currentIdx >= questions.length
-    ) {
-      completed = true;
-    }
-  }
-
-  function prevQuestion() {
-    if (currentIdx > 0) {
-      currentIdx--;
-      goto(`?${qs}=${currentIdx + 1}`);
-    }
-    completed = false;
-  }
+  const nextQuestion = () => {
+    currentStepIndex += 1;
+    // if (currentStepIndex <= questions.length - 1) {
+    //   currentStepIndex++;
+    //   sessionStorage.setItem("currIdx", currentStepIndex.toString());
+    // }
+    // if (
+    //   selectedAnswers[questions.length - 1] &&
+    //   currentStepIndex >= questions.length
+    // ) {
+    //   completed = true;
+    // }
+  };
 
   function complete() {
     // selectedAnswers를 결과 페이지로 전달
@@ -70,19 +59,13 @@
 </script>
 
 <div class="section">
-  <header>
-    <button class="circle-button" on:click={prevQuestion}>
-      <svg class="arrow-icon" width="10" height="10" viewBox="0 0 24 24">
-        <path stroke="#fff" stroke-width="2" fill="none" d="M16 20l-8-8 8-8" />
-      </svg>
-    </button>
-    <div class="progress-bar">
-      <div
-        class="progress"
-        style="width: {(currentIdx / questions.length) * 100}%;"
-      />
-    </div>
-  </header>
+  <div class="padding_box">
+    <Header bind:currentStepIndex />
+    <Progress
+      bind:answerCount={selectedAnswers.length}
+      bind:allStepIndex={Steps.length}
+    />
+  </div>
   <div class="row">
     <Funnel {qs} steps={Steps} />
     {#if completed}
@@ -101,55 +84,26 @@
 <style scoped>
   .section {
     width: 100%;
-    max-width: 330px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    background-color: #fbbd61;
   }
 
-  header {
+  .padding_box {
     width: 100%;
+    padding: 1.87rem 1.7rem 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-top: 40px;
-  }
-
-  .circle-button {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: orange;
-    display: flex;
-    border: none;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .arrow-icon {
-    font-weight: bold;
-    font-size: 10px;
+    flex-direction: column;
+    gap: 1.44rem;
   }
 
   .row {
+    flex: 1;
     display: flex;
     flex-direction: row;
     width: 100%;
-  }
-  .progress-bar {
-    width: 100%;
-    background-color: #ddd;
-    height: 20px;
-    border-radius: 10px;
-  }
-
-  .progress {
-    background-color: orange;
-    height: 100%;
-    border-radius: 10px;
   }
   .question {
     width: 100%;

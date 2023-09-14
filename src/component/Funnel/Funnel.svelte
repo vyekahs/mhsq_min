@@ -12,8 +12,8 @@
     props?: Record<string, any>;
   }[];
 
-  let index = $page.url.searchParams.get(qs);
-  let stepIndex = index ?? 1; // index가 null이면 0을 반환
+  let currFunnelStepIndex = $page.url.searchParams.get(qs); // funnel-step=value
+  let stepIndex = currFunnelStepIndex ? +currFunnelStepIndex : 1; // currFunnelStepIndex가 존재하면 +currFunnelStepIndex, 존재하지 않으면 1
 
   let currStep:
     | {
@@ -26,8 +26,8 @@
   let onNext: VoidFunction;
 
   $: {
-    index = $page.url.searchParams.get(qs);
-    stepIndex = index ?? 1;
+    currFunnelStepIndex = $page.url.searchParams.get(qs);
+    stepIndex = currFunnelStepIndex ? +currFunnelStepIndex : 1;
 
     currStep = steps.find((el) => el.name === +stepIndex);
 
@@ -64,5 +64,6 @@
 <style scoped>
   div {
     width: 100%;
+    height: 100%;
   }
 </style>
