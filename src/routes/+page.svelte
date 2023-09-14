@@ -1,32 +1,113 @@
-<div class="main">
-  <h1>검사 시작</h1>
-  <p>검사를 시작하시겠습니까?</p>
-  <p>검사는 약 10분 정도 소요됩니다.</p>
+<script>
+  import BottomDiscription from "../component/bottom_discription/bottom_discription.svelte";
+</script>
 
-  <a href="/survey" class="start-button">검사 시작하기</a>
-  <p>검사 결과는 <a href="/result">여기</a>에서 확인하실 수 있습니다.</p>
-</div>
+<body class="main">
+  <header>
+    <div>
+      <h4>마음연구소</h4>
+      <h2>네 마음의 구조를 알려주맛!</h2>
+    </div>
+  </header>
+  <section class="aa">
+    <section class="bb">
+      <img src="src/images/mask_group.svg" alt="landing" />
+      <div class="group">
+        <a href="/survey" class="start-button">시작하기</a>
+        <BottomDiscription />
+        <a href="/survey" class="company">마음연구소는?</a>
+      </div>
+    </section>
+  </section>
+</body>
 
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
   .main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    width: 100%;
+    height: 40%;
+    background-color: #fbbd61;
+  }
+  header div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10%;
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    border-radius: 60px 0px 0px 0px;
+  }
+  .aa {
+    background-color: #fbbd61;
+    border-radius: 0px 0px 0px 0px;
+  }
+  .bb {
+    margin-bottom: 10px;
+    padding: 20px 0;
+  }
+  .bb img {
+    width: 80%;
+    margin: 10px 0;
+  }
+  .group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .start-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fbbd61;
+    border-radius: 30px;
+    color: black;
     text-decoration: none;
-    font-weight: bold;
+    width: 274px;
+    height: 60px;
+    box-shadow: 0px 4px 4px 0px #0000001a;
+    font-family: Noto Sans;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: center;
   }
-
-  .start-button:hover {
-    background-color: #0056b3;
+  .company {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    width: 132px;
+    height: 38px;
+    border-radius: 30px;
+    border: 2px solid #fbbd61;
+    color: #4a4141;
+    font-family: Noto Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: center;
   }
 </style>
