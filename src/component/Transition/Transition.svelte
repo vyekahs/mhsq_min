@@ -14,8 +14,10 @@
       };
     }
     return {
-      duration: 600,
-      css: (t: number, u: number) => `transform: translateX(${offset * u}px);`,
+      duration: 400,
+      css: (t: number, u: number) => {
+        return `transform: translateX(${offset * u}px);`;
+      },
     };
   }
 
@@ -30,11 +32,11 @@
       };
     }
     return {
-      duration: $disabled ? 0 : 600,
+      duration: $disabled ? 0 : 400,
       css: (t: number, u: number) =>
         `transform: translateX(${
           -offset * u
-        }px); position:absolute;  left:0; width:100%; z-index: -1;`,
+        }px); position:absolute;  left:0; z-index: -1;`,
     };
   }
 </script>
