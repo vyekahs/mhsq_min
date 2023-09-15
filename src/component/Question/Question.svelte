@@ -1,4 +1,5 @@
 <script lang="ts">
+  export let index: number;
   export let question: string;
   export let answers: Answer[];
   export let onNext: () => void;
@@ -7,7 +8,7 @@
 
 <div class="question">
   <div class="title">
-    <span>{question}</span>
+    <span>{index}.{question}</span>
   </div>
   <div class="flex">
     {#each answers as answer}
@@ -22,6 +23,7 @@
       </button>
     {/each}
   </div>
+  <div style="height: 10px" />
 </div>
 
 <style scoped>
@@ -44,7 +46,7 @@
   .title > span {
     color: #4a4141;
     font-family: "THEFACESHOP INKLIPQUID";
-    font-size: 1.875rem;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -58,15 +60,14 @@
   .flex {
     flex: 1;
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
     border-top-left-radius: 60px;
     background: #f9f9f9;
-    padding: 40px 50px;
+    padding: 2rem 3.15rem 1rem;
   }
+
   button {
     width: 100%;
     padding: 14px 0;

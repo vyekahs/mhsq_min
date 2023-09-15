@@ -51,6 +51,7 @@
     name: question.index,
     component: Question,
     props: {
+      index: question.index,
       question: question.question,
       answers: question.answers,
       selectAnswer,
@@ -93,7 +94,7 @@
     padding: 1.87rem 1.7rem 0;
     display: flex;
     flex-direction: column;
-    gap: 1.44rem;
+    gap: 1.125rem;
   }
 
   .row {
