@@ -3,8 +3,6 @@
   import { answer } from "../store/answer_data";
   import { calculate } from "./schema_calculate";
   import { createComment } from "./schema_comment";
-  import { symptomsCalculate } from "./symptoms_calculate";
-  import { cutoff } from "./symptoms_comment";
   // @ts-ignore
   /**
    * @type {number[]}
