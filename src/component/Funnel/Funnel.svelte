@@ -2,7 +2,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import type { ComponentType } from "svelte";
   import Transition from "../Transition/Transition.svelte";
   import type { StepType } from "../../routes/survey/type";
 

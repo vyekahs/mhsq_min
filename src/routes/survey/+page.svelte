@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { questions } from "./question";
   import { answer } from "../store/answer_data";
   import Funnel from "../../component/Funnel/Funnel.svelte";
@@ -7,42 +6,13 @@
   import { page } from "$app/stores";
   import Header from "../../component/Survey/Header.svelte";
   import Progress from "../../component/Survey/Progress.svelte";
-  import type { ComponentType } from "svelte";
-  import type { AnswerType, StepType } from "./type";
+  import type { StepType } from "./type";
 
   let qs = "funnel-step";
   $: initIndex = $page.url.searchParams.get(qs);
-
   $: currentStepIndex = initIndex ? +initIndex : 1; // funnel-step이 없으면 1, 있으면 value
 
-  let selectedAnswers: AnswerType[] = [];
-
   let completed = false;
-
-  const selectAnswer = (answer: AnswerType) => {
-    selectedAnswers[currentStepIndex - 1] = answer;
-    nextQuestion();
-  };
-
-  const nextQuestion = () => {
-    currentStepIndex += 1;
-    // if (currentStepIndex <= questions.length - 1) {
-    //   currentStepIndex++;
-    //   sessionStorage.setItem("currIdx", currentStepIndex.toString());
-    // }
-    // if (
-    //   selectedAnswers[questions.length - 1] &&
-    //   currentStepIndex >= questions.length
-    // ) {
-    //   completed = true;
-    // }
-  };
-
-  function complete() {
-    // selectedAnswers를 결과 페이지로 전달
-    answer.set(selectedAnswers);
-    goto(`/result`, { state: { selectedAnswers }, replaceState: true });
-  }
 
   const Steps: StepType[] = questions.map((question) => ({
     name: question.index,
@@ -51,15 +21,18 @@
       index: question.index,
       question: question.question,
       answers: question.answers,
-      selectAnswer,
+      selectAnswer: answer.add,
     },
   }));
 </script>
 
 <div class="section">
   <div class="padding_box">
-    <Header bind:currentStepIndex />
-    <Progress bind:currentStepIndex bind:allStepIndex={Steps.length} />
+    <Header bind:현재_질문_인덱스={currentStepIndex} />
+    <Progress
+      bind:대답한_질문_개수={$answer.length}
+      bind:전체_질문_개수={Steps.length}
+    />
   </div>
   <div class="row">
     <Funnel bind:qs steps={Steps} />
@@ -67,9 +40,7 @@
       <div class="question">
         <span>검사가 완료되었습니다.</span>
         <div class="flex">
-          <button class="selectButton" on:click={complete}>
-            결과 확인하기
-          </button>
+          <button class="selectButton"> 결과 확인하기 </button>
         </div>
       </div>
     {/if}

@@ -1,17 +1,17 @@
 <script lang="ts">
-  export let currentStepIndex: number = 0; // 대답한 질문 개수
-  export let allStepIndex: number = 0; // 전체 질문 개수
+  export let 대답한_질문_개수: number = 0;
+  export let 전체_질문_개수: number = 0;
 </script>
 
 <div class="container">
   <div class="progressbar">
     <div
       class="progress"
-      style="width: {(currentStepIndex / allStepIndex) * 100}%;"
+      style="width: {(대답한_질문_개수 / 전체_질문_개수) * 100}%;"
     />
   </div>
   <span class="present">
-    {currentStepIndex} / {allStepIndex}
+    {대답한_질문_개수} / {전체_질문_개수}
   </span>
 </div>
 

@@ -1,5 +1,24 @@
 import { writable } from 'svelte/store';
+import type { AnswerType } from '../survey/type';
+import { browser } from '$app/environment';
 
-const answer = writable<Answer[]>([]);
+const sessionAnswerList = (): AnswerType[] => {
+    if (!browser) {
+        return [];
+    }
 
-export { answer }
+    const initAnswerList = sessionStorage.getItem('answer_list');
+    const parsedAnswerList = initAnswerList ? JSON.parse(initAnswerList) : [];
+    return parsedAnswerList;
+};
+
+const { subscribe, update } = writable(sessionAnswerList() || []);
+
+export const answer = {
+    subscribe,
+    add: ({ answer }: { answer: AnswerType }) => update((answerList) => {
+        const addAnswer = [...answerList, answer];
+        sessionStorage.setItem('answer_list', JSON.stringify(addAnswer));
+        return addAnswer;
+    })
+}

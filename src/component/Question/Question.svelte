@@ -5,7 +5,7 @@
   export let question: string;
   export let answers: AnswerType[];
   export let onNext: () => void;
-  export let selectAnswer: (answer: any) => void;
+  export let selectAnswer: ({ answer }: { answer: AnswerType }) => void;
 </script>
 
 <div class="question">
@@ -17,7 +17,7 @@
       <button
         class="selectButton"
         on:click={() => {
-          selectAnswer(answer);
+          selectAnswer({ answer });
           onNext();
         }}
       >

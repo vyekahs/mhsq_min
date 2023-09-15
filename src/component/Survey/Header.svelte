@@ -2,18 +2,21 @@
   import { goto } from "$app/navigation";
 
   export let qs: string = "funnel-step";
-  export let currentStepIndex: number = 0; // 현재 질문 index
+  export let 현재_질문_인덱스: number = 0;
 
-  const onClickPrev = () => {
-    if (currentStepIndex > 1) {
-      currentStepIndex -= 1;
-      goto(`?${qs}=${currentStepIndex}`);
+  const 이전_질문으로_이동 = ({
+    현재_질문_인덱스,
+  }: {
+    현재_질문_인덱스: number;
+  }) => {
+    if (현재_질문_인덱스 > 1) {
+      goto(`?${qs}=${현재_질문_인덱스 - 1}`);
     }
   };
 </script>
 
 <header>
-  <button on:click={onClickPrev}>
+  <button on:click={() => 이전_질문으로_이동({ 현재_질문_인덱스 })}>
     <img src="arrow-left.svg" alt="arrow" />
   </button>
   <div>
