@@ -49,7 +49,7 @@
 
 <div>
   {#if currStep}
-    {#key currStep}
+    {#key currStep.name}
       <Transition>
         <svelte:component
           this={currStep.component}
@@ -65,5 +65,6 @@
   div {
     width: 100%;
     height: 100%;
+    position: relative;
   }
 </style>

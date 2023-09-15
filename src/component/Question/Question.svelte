@@ -31,6 +31,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .title {
     width: 100%;
     padding: 0 1.4rem;
@@ -82,8 +83,5 @@
     font-weight: 400;
     line-height: normal;
     transition: background-color 0.3s;
-  }
-  button:hover {
-    background-color: #fbbd61;
   }
 </style>

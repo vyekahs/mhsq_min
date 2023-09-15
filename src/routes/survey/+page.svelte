@@ -10,9 +10,9 @@
   import type { ComponentType } from "svelte";
 
   let qs = "funnel-step";
-  let initIndex = $page.url.searchParams.get(qs);
+  $: initIndex = $page.url.searchParams.get(qs);
 
-  let currentStepIndex = initIndex ? +initIndex : 1; // funnel-step이 없으면 1, 있으면 value
+  $: currentStepIndex = initIndex ? +initIndex : 1; // funnel-step이 없으면 1, 있으면 value
 
   let selectedAnswers: Answer[] = [];
 
@@ -61,10 +61,7 @@
 <div class="section">
   <div class="padding_box">
     <Header bind:currentStepIndex />
-    <Progress
-      bind:answerCount={selectedAnswers.length}
-      bind:allStepIndex={Steps.length}
-    />
+    <Progress bind:currentStepIndex bind:allStepIndex={Steps.length} />
   </div>
   <div class="row">
     <Funnel {qs} steps={Steps} />
