@@ -8,17 +8,18 @@
   import Header from "../../component/Survey/Header.svelte";
   import Progress from "../../component/Survey/Progress.svelte";
   import type { ComponentType } from "svelte";
+  import type { AnswerType, StepType } from "./type";
 
   let qs = "funnel-step";
   $: initIndex = $page.url.searchParams.get(qs);
 
   $: currentStepIndex = initIndex ? +initIndex : 1; // funnel-step이 없으면 1, 있으면 value
 
-  let selectedAnswers: Answer[] = [];
+  let selectedAnswers: AnswerType[] = [];
 
   let completed = false;
 
-  const selectAnswer = (answer: Answer) => {
+  const selectAnswer = (answer: AnswerType) => {
     selectedAnswers[currentStepIndex - 1] = answer;
     nextQuestion();
   };
@@ -43,11 +44,7 @@
     goto(`/result`, { state: { selectedAnswers }, replaceState: true });
   }
 
-  const Steps: {
-    name: number;
-    component: ComponentType;
-    props?: Record<string, any>;
-  }[] = questions.map((question) => ({
+  const Steps: StepType[] = questions.map((question) => ({
     name: question.index,
     component: Question,
     props: {
@@ -65,7 +62,7 @@
     <Progress bind:currentStepIndex bind:allStepIndex={Steps.length} />
   </div>
   <div class="row">
-    <Funnel {qs} steps={Steps} />
+    <Funnel bind:qs steps={Steps} />
     {#if completed}
       <div class="question">
         <span>검사가 완료되었습니다.</span>

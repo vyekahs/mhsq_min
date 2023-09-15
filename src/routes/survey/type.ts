@@ -1,13 +1,21 @@
-type quest = {
+import type { ComponentType } from 'svelte';
+
+export type QuestionType = {
     index: number;
     question: string;
     group?: number[];
-    answers: Answer[];
+    answers: AnswerType[];
 }[];
 
-type Answer = {
+export type AnswerType = {
     answer: string;
     score: number;
     index: number;
     pass?: boolean;
+}
+
+export type StepType = {
+    name: number; // index
+    component: ComponentType;
+    props?: Record<string, any>
 }

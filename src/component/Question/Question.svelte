@@ -1,7 +1,9 @@
 <script lang="ts">
+  import type { AnswerType } from "../../routes/survey/type";
+
   export let index: number;
   export let question: string;
-  export let answers: Answer[];
+  export let answers: AnswerType[];
   export let onNext: () => void;
   export let selectAnswer: (answer: any) => void;
 </script>
