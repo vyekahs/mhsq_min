@@ -5,7 +5,13 @@
   export let question: string;
   export let answers: AnswerType[];
   export let onNext: () => void;
-  export let selectAnswer: ({ answer }: { answer: AnswerType }) => void;
+  export let selectAnswer: ({
+    index,
+    answer,
+  }: {
+    index: number;
+    answer: AnswerType;
+  }) => void;
 </script>
 
 <div class="question">
@@ -17,7 +23,7 @@
       <button
         class="selectButton"
         on:click={() => {
-          selectAnswer({ answer });
+          selectAnswer({ index: index - 1, answer });
           onNext();
         }}
       >

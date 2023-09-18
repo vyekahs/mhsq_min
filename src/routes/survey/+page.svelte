@@ -25,17 +25,13 @@
       selectAnswer: answer.add,
     },
   }));
-
-  onMount(() => {
-    answer.removeAll();
-  });
 </script>
 
 <div class="section">
   <div class="padding_box">
     <Header bind:현재_질문_인덱스={currentStepIndex} />
     <Progress
-      bind:대답한_질문_개수={$answer.length}
+      bind:현재_페이지_스텝={currentStepIndex}
       bind:전체_질문_개수={Steps.length}
     />
   </div>

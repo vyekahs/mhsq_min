@@ -16,10 +16,11 @@ const { subscribe, update } = writable(sessionAnswerList() || []);
 
 export const answer = {
     subscribe,
-    add: ({ answer }: { answer: AnswerType }) => update((answerList) => {
-        const addAnswer = [...answerList, answer];
-        sessionStorage.setItem('answer_list', JSON.stringify(addAnswer));
-        return addAnswer;
+    add: ({ index, answer }: { index: number, answer: AnswerType }) => update((answerList) => {
+        let addAnswerList = [...answerList];
+        addAnswerList[index] = answer;
+        sessionStorage.setItem('answer_list', JSON.stringify(addAnswerList));
+        return addAnswerList;
     }),
     remove: () => update((answerList) => {
         const removeAnswer = [...answerList].slice(0, [...answerList].length - 1);
