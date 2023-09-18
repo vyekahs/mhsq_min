@@ -16,7 +16,9 @@
       <div class="group">
         <a href="/survey" class="start-button">시작하기</a>
         <BottomDiscription />
-        <a href="/survey" class="company">마음연구소는?</a>
+        <a href="https://www.maumlab.co.kr/" class="company" target="_blank"
+          >마음연구소는?</a
+        >
       </div>
     </section>
   </section>

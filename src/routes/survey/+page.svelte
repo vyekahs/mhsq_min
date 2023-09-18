@@ -7,6 +7,7 @@
   import Header from "../../component/Survey/Header.svelte";
   import Progress from "../../component/Survey/Progress.svelte";
   import type { StepType } from "./type";
+  import { onMount } from "svelte";
 
   let qs = "funnel-step";
   $: initIndex = $page.url.searchParams.get(qs);
@@ -24,6 +25,10 @@
       selectAnswer: answer.add,
     },
   }));
+
+  // onMount(() => {
+  //   sessionStorage.clear();
+  // });
 </script>
 
 <div class="section">
