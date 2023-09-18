@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Header from "../../component/Survey/Header.svelte";
   import BottomDiscription from "../../component/bottom_discription/bottom_discription.svelte";
@@ -23,6 +24,11 @@
 
   const copyClipboard = async () => {
     await window.navigator.clipboard.writeText($page.url.href);
+  };
+
+  const onRetry = () => {
+    answer.removeAll();
+    goto(`survey`);
   };
 </script>
 
@@ -71,7 +77,7 @@
         </div>
       </div>
       <div class="retry_button">
-        <button>다시 해보기</button>
+        <button on:click={onRetry}>다시 해보기</button>
       </div>
       <BottomDiscription />
     </div>

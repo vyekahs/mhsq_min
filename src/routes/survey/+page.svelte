@@ -25,11 +25,6 @@
       selectAnswer: answer.add,
     },
   }));
-
-  onMount(() => {
-    sessionStorage.clear();
-    console.log($answer);
-  });
 </script>
 
 <div class="section">

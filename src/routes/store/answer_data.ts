@@ -25,5 +25,9 @@ export const answer = {
         const removeAnswer = [...answerList].slice(0, [...answerList].length - 1);
         sessionStorage.setItem('answer_list', JSON.stringify(removeAnswer));
         return removeAnswer;
+    }),
+    removeAll: () => update((answerList) => {
+        sessionStorage.removeItem('answer_list');
+        return [];
     })
 }
