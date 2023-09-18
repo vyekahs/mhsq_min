@@ -18,7 +18,12 @@
   }: {
     보여줄_퍼널_페이지: number;
   }) => {
-    goto(`?${qs}=${보여줄_퍼널_페이지 + 1}`);
+    const max_length = steps.length;
+    if (보여줄_퍼널_페이지 < max_length) {
+      goto(`?${qs}=${보여줄_퍼널_페이지 + 1}`);
+      return;
+    }
+    goto("result");
   };
 </script>
 
