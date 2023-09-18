@@ -1,4 +1,5 @@
 <script>
+  import { page } from "$app/stores";
   import Header from "../../component/Survey/Header.svelte";
   import BottomDiscription from "../../component/bottom_discription/bottom_discription.svelte";
   import { answer } from "../store/answer_data";
@@ -19,6 +20,10 @@
   // const bb = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   // const bbb = symptomsCalculate(bb, 'male');
   // const comment2 = cutoff(bbb);
+
+  const copyClipboard = async () => {
+    await window.navigator.clipboard.writeText($page.url.href);
+  };
 </script>
 
 <section>
@@ -29,7 +34,8 @@
     <div class="links">
       <button>
         <img src="share_kakao.svg" alt="share_kakao" />
-      </button><button>
+      </button>
+      <button on:click={copyClipboard}>
         <img src="share_link.svg" alt="share_link" />
       </button>
     </div>
