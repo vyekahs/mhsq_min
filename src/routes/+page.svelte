@@ -1,5 +1,6 @@
 <script>
   import BottomDiscription from "../component/bottom_discription/bottom_discription.svelte";
+  import src from "$lib/assets/mask_group.svg";
 </script>
 
 <body class="main">
@@ -11,7 +12,7 @@
   </header>
   <section class="aa">
     <section class="bb">
-      <img src="src/images/mask_group.svg" alt="landing" />
+      <img {src} alt="landing" />
       <div class="group">
         <a href="/survey" class="start-button">시작하기</a>
         <BottomDiscription />
