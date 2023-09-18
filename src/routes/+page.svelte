@@ -32,7 +32,6 @@
   .main {
     display: flex;
     flex-direction: column;
-    height: 100vh;
   }
   header {
     display: flex;
@@ -40,16 +39,33 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 40%;
+    height: 15rem;
     background-color: #fbbd61;
   }
-  header div {
+  header > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     margin-top: 10%;
+    color: #3d3030;
+    font-family: "THEFACESHOP INKLIPQUID";
   }
+
+  header > div > h2 {
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  header > div > h4 {
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
   section {
     display: flex;
     flex-direction: column;
@@ -61,12 +77,13 @@
     border-radius: 60px 0px 0px 0px;
   }
   .aa {
+    flex: 1;
     background-color: #fbbd61;
     border-radius: 0px 0px 0px 0px;
   }
   .bb {
     margin-bottom: 10px;
-    padding: 20px 0;
+    padding: 3rem 1.3rem 1.62rem;
   }
   .bb img {
     width: 80%;
@@ -77,6 +94,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1.8rem;
   }
   .start-button {
     display: flex;

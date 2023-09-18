@@ -10,7 +10,7 @@
 
 <div class="question">
   <div class="title">
-    <span>{index}.{question}</span>
+    <span>{index}. {question}</span>
   </div>
   <div class="flex">
     {#each answers as answer}
@@ -39,7 +39,7 @@
   .title {
     width: 100%;
     padding: 0 1.4rem;
-    height: 8rem;
+    height: 12rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +48,7 @@
   .title > span {
     color: #4a4141;
     font-family: "THEFACESHOP INKLIPQUID";
-    font-size: 1.5rem;
+    font-size: 2.1rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
