@@ -25,6 +25,10 @@
       selectAnswer: answer.add,
     },
   }));
+
+  onMount(() => {
+    answer.removeAll();
+  });
 </script>
 
 <div class="section">
@@ -52,6 +56,7 @@
   .section {
     width: 100%;
     height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,6 +76,10 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    /* min-height: calc(100% - 9rem); */
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
   }
   .question {
     width: 100%;

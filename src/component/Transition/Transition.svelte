@@ -16,7 +16,7 @@
     return {
       duration: 400,
       css: (t: number, u: number) => {
-        return `transform: translateX(${offset * u}px);`;
+        return `position: absolute; transform: translateX(${offset * u}px);`;
       },
     };
   }
@@ -33,7 +33,8 @@
     return {
       duration: $disabled ? 0 : 400,
       css: (t: number, u: number) =>
-        `transform: translateX(${-offset * u}px);
+        `position: absolute;
+        transform: translateX(${-offset * u}px);
         left:0; z-index: -1;
         `,
     };
