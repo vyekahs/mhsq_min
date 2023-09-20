@@ -1,4 +1,6 @@
-const questions: quest = [
+import type { QuestionType } from './type';
+
+export const questions: QuestionType = [
     {
         index: 1,
         question: "최근 2주 동안, 우울한 기분이나 슬픔을 느낍니다.",

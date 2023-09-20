@@ -1,5 +1,6 @@
+import type { QuestionType } from './type';
 
-export const questions: quest = [
+export const questions: QuestionType = [
     {
         index: 1,
         question: "나를 따뜻하게 대해주고, 애정을 보여주는 사람이 없었다.",
